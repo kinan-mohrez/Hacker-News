@@ -21,3 +21,128 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+html{
+  margin: 0;
+  padding: 0;
+  background-color: gray;
+}
+body {
+  max-width: 1000px;
+  margin:  0 auto;
+  background-color: #f3f3f3;
+  padding: 20px;
+}
+
+.topic{
+  font-weight: bold;
+}
+
+.menu{
+display: flex;
+}
+.menu input[type = text]{
+  width: 100%;
+  margin-right: 4px;
+  outline: none;
+}
+.theDiv {
+  margin: 0;
+  padding: 0;
+}
+
+.theDiv .ulist{
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  
+}
+
+.theDiv .ulist .item {
+padding:  10px;
+font-size: 19px;
+vertical-align: top;
+width: 25%;
+align-items: top;
+}
+.theDiv .ulist .item:nth-child(1) {
+width: 10%;
+}
+
+.theDiv .ulist .item:nth-child(4) {
+word-wrap: break-word;
+}
+
+.theDiv .ulist:hover{
+  background-color: deepskyblue;
+  color: white;
+  cursor: pointer;
+}
+
+.contDiv{
+counter-increment: index; 
+}
+
+
+
+/* List */
+/* List element */
+li {
+  
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  box-sizing: border-box;
+}
+
+
+/* Element counter */
+li::before {
+  content: counters(index, ".", decimal-leading-zero);
+  
+  text-align: right;
+  font-weight: bold;
+  min-width: 50px;
+  padding-right: 12px;
+  font-variant-numeric: tabular-nums;
+  align-self: flex-start;
+  background-image: linear-gradient(to bottom, aquamarine, orangered);
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+/* Element separation */
+li + li {
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@use postcss-preset-env {
+  stage: 0;
+  autoprefixer: {
+    grid: true;
+  }
+  browsers: last 2 versions
+}

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './loaderSpinner.css';
 import axios from 'axios';
 import TheElement from './TheElement';
@@ -7,6 +7,7 @@ export function Content() {
 	// const [searchText, SetSearch] = useState(
 	// 	document.querySelector('.Inputtext')
 	// );
+
 	const inputSearchText = useRef();
 
 	const [res, setRes] = useState('');
@@ -34,45 +35,60 @@ export function Content() {
 				}
 			})
 			.catch((error) => console.log(error));
-
-		// try {
-		// 	const response = await axios.get('https://hn.algolia.com/api/v1/items/1');
-		// 	console.log(response.data.children);
-		// 	return response.data;
-		// } catch (error) {
-		// 	console.error(error);
-		// }
 	}
+	useEffect(() => {
+		getItems();
+	}, []);
 
 	return (
-		<div className='App'>
-			<input
-				type='text'
-				className='Inputtext'
-				placeholder='Searching .....'
-				ref={inputSearchText}
-			></input>
+		<div>
+			<div className='menu'>
+				<input
+					ref={inputSearchText}
+					type='text'
+					id='form1'
+					class='form-control'
+					placeholder='Search ....'
+				/>
+				<button onClick={getItems} type='button' class='btn btn-primary'>
+					Search
+				</button>
+			</div>
 
-			<button onClick={getItems}>Search</button>
-			{
-				loadingSpinner ? (
-					<div className='loader'></div>
-				) : text ? (
-					text.hits.map((item) => <div>{item.author}</div>) +
-					' .... ' +
-					text.hits[0].title +
-					' .... ' +
-					text.hits[0].created_at +
-					' .... ' +
-					text.hits[0].url
-				) : (
-					<div className='loader'></div>
-				)
-
-				// 	text.map((el) => {
-				// 		return <TheElement elem={el} />;
-				// 	})
-			}
+			{loadingSpinner ? (
+				<div className='loader'></div>
+			) : text ? (
+				text.hits.map((item) => (
+					<div className='contDiv'>
+						<ul className='theDiv'>
+							<li className='ulist'>
+								<div className='item'>
+									<span className='topic'>Author</span>
+									<br />
+									{item.author}
+								</div>
+								<div className='item'>
+									<span className='topic'>Title</span>
+									<br />
+									{item.title}
+								</div>
+								<div className='item'>
+									<span className='topic'>Created at</span>
+									<br />
+									{item.created_at}
+								</div>
+								<div className='item'>
+									<span className='topic'>url</span>
+									<br />
+									{item.url}
+								</div>
+							</li>
+						</ul>
+					</div>
+				))
+			) : (
+				<div className='loader'></div>
+			)}
 		</div>
 	);
 }
